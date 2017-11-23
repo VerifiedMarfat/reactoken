@@ -24,9 +24,8 @@ class Monkeys extends Component {
 class Mood extends Component {
   constructor(props) {
     super(props);
-    const moods = ["happy", "sad"]
+    const moods = ["happy", "sad"];
     this.state = { mood: moods[0] };
-    console.log('thy props', props)
 
     setInterval(() => {
       if (this.props.rotate) {
@@ -34,7 +33,7 @@ class Mood extends Component {
           return { mood: (previousState.mood == moods[0]) ? moods[1] : moods[0] }
         })
       }
-    }, 3000);
+    }, 1000);
   }
   render() {
     return (
@@ -53,7 +52,7 @@ class Initiate extends Component {
       <View>
         <TextInput
           style={{ height: 40 }}
-          placeholder="I'm ready..."
+          placeholder="Write answer.."
           onChangeText={(answer) => this.setState({ answer })}
         />
         <Text>{this.state.answer}</Text>
@@ -67,6 +66,9 @@ export default class App extends React.Component {
     super(props);
     this.state = { isChanging: true };
   }
+  stopRotation() {
+    return this.setState({ isChanging: false });
+  }
   render() {
     return (
       <View style={styles.container}>
@@ -78,8 +80,8 @@ export default class App extends React.Component {
         <Initiate />
 
         <Button
-          onPress={() => { console.log('change state now') }}
-          title="Press Me"
+          onPress={() => { this.stopRotation() }}
+          title="Press Me to stop changing moods"
         />
       </View>
     );
